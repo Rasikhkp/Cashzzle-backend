@@ -5,18 +5,52 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "mongodb"
-    url      = env("DATABASE_URL")
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Type {
+  spending
+  income
 }
 
 model User {
-    id       String  @id @default(auto()) @map("_id") @db.ObjectId
-    email    String  @unique
-    name     String
-    password String?
-    picture  String?
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  email         String          @unique
+  name          String
+  password      String?
+  picture       String?
+  transactinos  Transaction[]
+  SpendingLimit SpendingLimit[]
+}
+
+model Transaction {
+  id          String   @id @map("_id")
+  description String
+  price       String
+  type        Type
+  time        DateTime
+  userId      String   @db.ObjectId
+  categoryId  String
+  user        User     @relation(fields: [userId], references: [id])
+  category    Category @relation(fields: [categoryId], references: [id])
+}
+
+model Category {
+  id           String        @id @map("_id")
+  name         String
+  icon         String
+  transactions Transaction[]
+}
+
+model SpendingLimit {
+  id            String @id @map("_id")
+  date          String @unique
+  spendingLimit String
+  userId        String @db.ObjectId
+  user          User   @relation(fields: [userId], references: [id])
 }
