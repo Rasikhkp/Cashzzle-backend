@@ -3,8 +3,9 @@ import { prisma } from "../utils/prisma";
 import { handleServerError } from "../middleware/errorHandler";
 
 const getAllCategories = async (req: Request, res: Response) => {
+  const userId = req.query.userId as string
   try {
-    const categories = await prisma.category.findMany()
+    const categories = await prisma.category.findMany({ where: { userId } })
 
     res.json({ success: true, message: categories })
   } catch (error: any) {

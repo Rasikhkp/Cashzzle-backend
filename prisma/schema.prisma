@@ -26,6 +26,7 @@ model User {
   picture       String?
   transactinos  Transaction[]
   SpendingLimit SpendingLimit[]
+  Category      Category[]
 }
 
 model Transaction {
@@ -42,9 +43,11 @@ model Transaction {
 
 model Category {
   id           String        @id @map("_id")
+  userId       String        @db.ObjectId
   name         String
   icon         String
   transactions Transaction[]
+  user         User          @relation(fields: [userId], references: [id])
 }
 
 model SpendingLimit {

@@ -64,10 +64,8 @@ const verifyEmail = async (req: Request, res: Response) => {
     const { token } = req.body;
     const { name, email, hashedPassword }: any = jwt.verify(token, process.env.JWT_SECRET!);
 
-    await prisma.user.upsert({
-      where: { email },
-      update: { name, email, password: hashedPassword },
-      create: { name, email, password: hashedPassword },
+    await prisma.user.create({
+      data: { name, email, password: hashedPassword },
     });
 
     res.json({ success: true, message: "Email verified" });
