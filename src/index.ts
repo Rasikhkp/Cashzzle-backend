@@ -20,6 +20,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/transactions', transactionRoutes)
 app.use('/api/categories', categoryRoutes)
 app.use('/api/spendingLimits', spendingLimitRoutes)
+app.get("/tes", (req, res) => {
+  res.send("tes")
+})
 
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);

@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es2017", // or your desired ECMAScript version
+    "module": "commonjs",
+    "strict": true, // Disable strict type checking
+    "rootDir": "./src/",
+    "outDir": "./dist/",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": false
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
